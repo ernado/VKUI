@@ -1,49 +1,8 @@
-import webpack from 'webpack';
-import WebpackDevServer from 'webpack-dev-server';
 import type { Config as JestConfig } from '@jest/types';
 import baseSetup from 'jest-playwright-preset/setup';
-import { generateWebpackConfig } from '../generateWebpackConfig';
 import { useDocker } from '../detectEnv';
 import { startDocker } from '../docker';
-
-let devServer: WebpackDevServer;
-async function setupWebpack() {
-  const webpackConfig = await generateWebpackConfig();
-  const compiler = webpack(webpackConfig);
-  const compilerDone = new Promise((resolve, reject) => {
-    compiler.hooks.watchRun.tapAsync('@jest-playwright', (_, callback) => {
-      console.log('\nBuilding browser bundle...');
-      callback();
-    });
-    compiler.hooks.done.tapAsync('@jest-playwright', (stats, callback) => {
-      if (stats.hasErrors()) {
-        console.log('Build failed');
-        reject(stats);
-      } else {
-        console.log('Build OK');
-        resolve(stats);
-      }
-      callback();
-    });
-  });
-
-  devServer = new WebpackDevServer(
-    {
-      host: 'localhost',
-      port: 9000,
-      allowedHosts: 'all',
-      devMiddleware: {
-        stats: 'minimal',
-      },
-      ...webpackConfig.devServer,
-    },
-    compiler as any,
-  );
-  await devServer.start();
-  (global as any)['__DEV_SERVER__'] = devServer;
-
-  return compilerDone;
-}
+import { devServer, setupWebpack } from '../setupWebpack';
 
 module.exports = async function setup(jestConfig: JestConfig.GlobalConfig) {
   // do not re-run webpack in watch mode

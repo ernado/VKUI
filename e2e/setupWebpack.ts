@@ -2,18 +2,51 @@ import * as path from 'path';
 import { promisify } from 'util';
 import cbGlob from 'glob';
 import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpackConfig = require('../webpack.config.js');
 const glob = promisify(cbGlob);
 
-const {
-  externals,
-  plugins = [],
-  devServer,
-  resolve = {},
-  output = {},
-  ...baseWebpackConfig
-} = webpackConfig;
+const { externals, plugins = [], resolve = {}, output = {}, ...baseWebpackConfig } = webpackConfig;
+
+export let devServer: WebpackDevServer;
+export async function setupWebpack() {
+  const webpackConfig = await generateWebpackConfig();
+  const compiler = webpack(webpackConfig);
+  const compilerDone = new Promise((resolve, reject) => {
+    compiler.hooks.watchRun.tapAsync('@jest-playwright', (_, callback) => {
+      console.log('\nBuilding browser bundle...');
+      callback();
+    });
+    compiler.hooks.done.tapAsync('@jest-playwright', (stats, callback) => {
+      if (stats.hasErrors()) {
+        console.log('Build failed');
+        reject(stats);
+      } else {
+        console.log('Build OK');
+        resolve(stats);
+      }
+      callback();
+    });
+  });
+
+  devServer = new WebpackDevServer(
+    {
+      host: 'localhost',
+      port: 9000,
+      allowedHosts: 'all',
+      devMiddleware: {
+        stats: 'minimal',
+      },
+      ...webpackConfig.devServer,
+    },
+    compiler as any,
+  );
+  await devServer.start();
+  (global as any)['__DEV_SERVER__'] = devServer;
+
+  return compilerDone;
+}
 
 export async function generateWebpackConfig() {
   process.env.BABEL_KEEP_CSS = '1';
