@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  vkui-chrome:
-    image: browserless/chrome:latest
+  vkui-e2e:
+    image: mcr.microsoft.com/playwright:v1.28.1-focal
     ports:
       - '9001:3000'
