@@ -1,4 +1,4 @@
-import { type PlaywrightTestConfig, devices } from '@playwright/test';
+import { type PlaywrightTestConfig, devices } from '@playwright/experimental-ct-react';
 
 /**
  * Read environment variables from file.
@@ -10,9 +10,9 @@ import { type PlaywrightTestConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 const playwrightConfig: PlaywrightTestConfig = {
-  testDir: './',
-  // testMatch: /.*\.test\.{ts,tsx}/,
-  // testDir: "**/*.e2e.{ts,tsx}",
+  testDir: '.',
+  testMatch: /.*\.spec\.(tsx|ts)/,
+  snapshotDir: './__screenshots__',
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
@@ -42,10 +42,13 @@ const playwrightConfig: PlaywrightTestConfig = {
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
+    /* Port to use for Playwright component endpoint. */
+    ctPort: 9001,
   },
 
-  globalSetup: require.resolve('./globalSetup.ts'),
-  globalTeardown: require.resolve('./globalTeardown.ts'),
+  globalSetup: require.resolve('./playwright/globalSetup.ts'),
+  globalTeardown: require.resolve('./playwright/globalTeardown.ts'),
 
   /* Configure projects for major browsers */
   projects: [
@@ -86,7 +89,7 @@ const playwrightConfig: PlaywrightTestConfig = {
   ],
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
-  outputDir: '__diff_output__/',
+  outputDir: './__diff_output__/',
 
   /* Run your local dev server before starting the tests */
   // webServer: {

@@ -201,7 +201,7 @@
     "test:unit:ci": "yarn test:unit --ci --silent --outputFile test-results.json --json --coverage --coverageReporters='json' --coverageDirectory='.nyc_output'",
     "test:e2e": "jest --config e2e/jest.e2e.config.js",
     "test:e2e:ci": "yarn test:e2e --ci --outputFile e2e-results.json --json",
-    "test:playwright": "playwright test -c --config='e2e/playwright.config.ts'",
+    "test:playwright": "playwright test -c playwright.config.ts",
     "test:combine-coverage": "npx nyc report --reporter=lcov",
     "lint:es": "eslint --ext .jsx,.js,.ts,.tsx src/ e2e/ styleguide/ --cache --cache-location .cache/.eslintcache",
     "lint:es:ci": "yarn lint:es -o lint-results.json -f json",

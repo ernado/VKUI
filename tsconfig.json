@@ -36,9 +36,12 @@
     "e2e/**/*.ts",
     "e2e/**/*.tsx",
     "e2e/**/*.js",
+    "playwright/**/*.ts",
+    "playwright/**/*.tsx",
     ".github/**/*.js",
     "packages/**/*.js",
-    "*.js"
+    "*.js",
+    "playwright.config.ts"
   ],
   "exclude": ["packages/token-translator/**/*"],
   "files": ["types/global.d.ts", "types/env.d.ts"]
