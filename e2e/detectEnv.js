@@ -19,4 +19,6 @@ const isLinux = checkLinux();
 const useDocker = process.env.E2E_DOCKER === '1' || (!isLinux && checkDocker());
 const canRunTests = useDocker || isLinux;
 
-module.exports = { isLinux, useDocker, canRunTests };
+const host = useDocker ? 'host.docker.internal' : 'localhost';
+
+module.exports = { isLinux, useDocker, canRunTests, host };
