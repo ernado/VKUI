@@ -37,11 +37,14 @@ const playwrightConfig: PlaywrightTestConfig = {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
     /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:9001/',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
+
+  globalSetup: require.resolve('./globalSetup.ts'),
+  globalTeardown: require.resolve('./globalTeardown.ts'),
 
   /* Configure projects for major browsers */
   projects: [
@@ -67,18 +70,18 @@ const playwrightConfig: PlaywrightTestConfig = {
     },
 
     /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: {
-    //     ...devices['Pixel 5'],
-    //   },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: {
-    //     ...devices['iPhone 12'],
-    //   },
-    // },
+    {
+      name: 'Mobile Chrome',
+      use: {
+        ...devices['Pixel 5'],
+      },
+    },
+    {
+      name: 'Mobile Safari',
+      use: {
+        ...devices['iPhone XR'],
+      },
+    },
 
     /* Test against branded browsers. */
     // {
@@ -96,12 +99,12 @@ const playwrightConfig: PlaywrightTestConfig = {
   ],
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
-  // outputDir: 'test-results/',
+  outputDir: '__diff_output__/',
 
   /* Run your local dev server before starting the tests */
   // webServer: {
   //   command: 'npm run start',
-  //   port: 3000,
+  //   port: 9001,
   // },
 };
 
