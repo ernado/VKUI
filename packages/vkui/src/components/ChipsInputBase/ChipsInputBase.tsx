@@ -44,9 +44,9 @@ export const chipsInputDefaultProps: ChipsInputBaseProps<any> = {
       return null;
     }
 
-    const { disabled, value, label, ...rest } = props;
+    const { disabled, value, label, ...restProps } = props;
     return (
-      <Chip value={value} removable={!disabled} {...rest}>
+      <Chip value={value} removable={!disabled} {...restProps}>
         {label}
       </Chip>
     );
