@@ -331,7 +331,7 @@ export const ChipsSelect = <Option extends ChipOption>(props: ChipsSelectProps<O
           className,
         )}
         disabled={disabled}
-        role="application"
+        role="combobox"
         aria-disabled={disabled}
         aria-readonly={restProps.readOnly}
         after={
@@ -339,7 +339,7 @@ export const ChipsSelect = <Option extends ChipOption>(props: ChipsSelectProps<O
             className={styles['ChipsSelect__dropdown']}
             activeMode=""
             hoverMode=""
-            // TODO: add label customization
+            // TO DO: add label customization
             aria-label={opened ? 'Скрыть' : 'Развернуть'}
             onClick={toggleOpened}
           >
