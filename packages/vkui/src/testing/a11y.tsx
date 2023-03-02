@@ -10,10 +10,12 @@ export const axe = configureAxe({
 expect.extend(toHaveNoViolations);
 
 export function a11yBasicTest(Component: React.ComponentType<any>) {
-  it('a11y: has no violations', async () => {
-    const { container } = render(<Component />);
+  describe('a11y(basic):', () => {
+    it('has no axe violations', async () => {
+      const { container } = render(<Component />);
 
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
   });
 }
