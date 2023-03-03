@@ -12,6 +12,7 @@ import { isRefObject } from '../../lib/isRefObject';
 import { useIsomorphicLayoutEffect } from '../../lib/useIsomorphicLayoutEffect';
 import { AppRootContext } from './AppRootContext';
 import { ElementScrollController, GlobalScrollController } from './ScrollContext';
+import './AppRoot.css';
 import styles from './AppRoot.module.css';
 
 const vkuiSizeXClassNames = {

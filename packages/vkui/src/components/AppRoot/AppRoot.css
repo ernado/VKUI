@@ -1,0 +1,19 @@
+/* stylelint-disable @project-tools/stylelint-atomic */
+.vkui__root--embedded {
+  transform: translate3d(0, 0, 0);
+  overflow-x: hidden;
+}
+
+.vkui__root--embedded .AppRoot {
+  overflow: auto;
+}
+
+.vkui--sizeX-regular {
+  background: var(--vkui--color_background);
+}
+
+@media (--sizeX-regular) {
+  .vkui--sizeX-none {
+    background: var(--vkui--color_background);
+  }
+}

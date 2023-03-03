@@ -1,17 +1,17 @@
-:global(.vkui) > body {
+.vkui > body {
   overflow-x: hidden;
 }
 
-:global(.vkui),
-:global(.vkui) > body,
+.vkui,
+.vkui > body,
 .vkui__root {
   margin: 0;
   padding: 0;
   height: 100%;
 }
 
-:global(.vkui),
-:global(.vkui) > body {
+.vkui,
+.vkui > body {
   -webkit-font-smoothing: subpixel-antialiased;
   -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: 100%;
